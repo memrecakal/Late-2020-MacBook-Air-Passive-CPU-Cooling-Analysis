@@ -1,0 +1,50 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      binary;
+    class       volScalarField;
+    location    "0/metal";
+    object      cellToRegion;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 4;
+
+boundaryField
+{
+    fixedWallsBottom
+    {
+        type            zeroGradient;
+    }
+    metal_to_battery
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    metal_to_heatsink
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    metal_to_fluid
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    metal_to_pcb
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+}
+
+
+// ************************************************************************* //
