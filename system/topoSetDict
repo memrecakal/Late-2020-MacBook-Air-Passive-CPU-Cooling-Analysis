@@ -1,0 +1,253 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    // Heater - cpu - mostly al
+    {
+        name    heaterCellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.229 0.314 0.0495)(0.241 0.326 0.051); // heater - cpu
+        }
+    }
+    {
+        name    heater;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set heaterCellSet;
+        }
+    }
+    
+
+	
+	//pcb - mostly copper
+    {
+        name    pcbCellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.125 0.29675 0.0475) (0.375 0.3438 0.0495); // pcb
+        }
+    }
+    {
+        name    pcb;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set pcbCellSet;
+        }
+    }
+    
+	//heat sink - mostly copper
+    {
+        name    heatsinkCellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.125 0.29675 0.0495) (0.271 0.3438 0.0525); // pcb
+        }
+    }
+    {
+        name    heatsinkCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.229 0.314 0.0495)(0.241 0.326 0.051); // removing cpu
+        }
+    }
+    {
+        name    heatsink;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set heatsinkCellSet;
+        }
+    }
+
+    // battery - mostly ???
+    {
+        name    batteryCellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.125 0.16175 0.0475)(0.375 0.29675 0.0525); // battery
+        }
+    }
+    {
+        name    batteryCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.189 0.16175 0.0475)(0.311 0.23175 0.0525); // removing touchpad area
+        }
+    }
+    {
+        name    battery;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set batteryCellSet;
+        }
+    }
+
+    // case (metal) - mostly al
+    {
+        name    metalCellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.09795 0.1438 0.045)(0.40205 0.3562 0.055); // metal (al) case
+        }
+    }
+    {
+        name    metalCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.10648 0.16175 0.0475)(0.392 0.34665 0.0525); // remove internal space
+        }
+    }
+    {
+        name    metal;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set metalCellSet;
+        }
+    }
+    
+	
+	
+	//fluid
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0 0  0)(0.5 0.5 0.1); // fluid
+        }
+    }
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.09795 0.1438 0.045)(0.40205 0.3562 0.055); // remove metal (al) case
+        }
+    }
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  add;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.10648 0.16175 0.0475)(0.392 0.34665 0.0525); // add internal space
+        }
+    }
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.125 0.29675 0.0475) (0.375 0.3438 0.0495); //removing pcb
+        }
+    }
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.125 0.29675 0.0495) (0.271 0.3438 0.0525); //removing heat sink + heater
+        }
+    }
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  delete;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.125 0.16175 0.0475)(0.375 0.29675 0.0525); //removing battery
+        }
+    }
+    {
+        name    fluidCellSet;
+        type    cellSet;
+        action  add;
+        source  boxToCell;
+        sourceInfo
+        {
+            box  (0.189 0.16175 0.0475)(0.311 0.23175 0.0525); //adding touchpad area
+        }
+    }
+
+    {
+        name    fluid;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set fluidCellSet;
+        }
+    }
+    
+    
+    
+
+);
+
+
+// ************************************************************************* //
