@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/heatsink/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+5
+(
+    heatsink_to_metal
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1610;
+        startFace       54628;
+        sampleMode      nearestPatchFace;
+        sampleRegion    metal;
+        samplePatch     metal_to_heatsink;
+    }
+    heatsink_to_battery
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          840;
+        startFace       56238;
+        sampleMode      nearestPatchFace;
+        sampleRegion    battery;
+        samplePatch     battery_to_heatsink;
+    }
+    heatsink_to_pcb
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1580;
+        startFace       57078;
+        sampleMode      nearestPatchFace;
+        sampleRegion    pcb;
+        samplePatch     pcb_to_heatsink;
+    }
+    heatsink_to_fluid
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1392;
+        startFace       58658;
+        sampleMode      nearestPatchFace;
+        sampleRegion    fluid;
+        samplePatch     fluid_to_heatsink;
+    }
+    heatsink_to_heater
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          162;
+        startFace       60050;
+        sampleMode      nearestPatchFace;
+        sampleRegion    heater;
+        samplePatch     heater_to_heatsink;
+    }
+)
+
+// ************************************************************************* //

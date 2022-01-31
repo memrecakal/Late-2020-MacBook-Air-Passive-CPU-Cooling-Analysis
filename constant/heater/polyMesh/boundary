@@ -1,0 +1,41 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/heater/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+2
+(
+    heater_to_pcb
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          30;
+        startFace       444;
+        sampleMode      nearestPatchFace;
+        sampleRegion    pcb;
+        samplePatch     pcb_to_heater;
+    }
+    heater_to_heatsink
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          162;
+        startFace       474;
+        sampleMode      nearestPatchFace;
+        sampleRegion    heatsink;
+        samplePatch     heatsink_to_heater;
+    }
+)
+
+// ************************************************************************* //

@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/battery/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+4
+(
+    battery_to_metal
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          12834;
+        startFace       352935;
+        sampleMode      nearestPatchFace;
+        sampleRegion    metal;
+        samplePatch     metal_to_battery;
+    }
+    battery_to_heatsink
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          840;
+        startFace       365769;
+        sampleMode      nearestPatchFace;
+        sampleRegion    heatsink;
+        samplePatch     heatsink_to_battery;
+    }
+    battery_to_fluid
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          5892;
+        startFace       366609;
+        sampleMode      nearestPatchFace;
+        sampleRegion    fluid;
+        samplePatch     fluid_to_battery;
+    }
+    battery_to_pcb
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1080;
+        startFace       372501;
+        sampleMode      nearestPatchFace;
+        sampleRegion    pcb;
+        samplePatch     pcb_to_battery;
+    }
+)
+
+// ************************************************************************* //

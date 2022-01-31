@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/pcb/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+5
+(
+    pcb_to_heater
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          30;
+        startFace       70473;
+        sampleMode      nearestPatchFace;
+        sampleRegion    heater;
+        samplePatch     heater_to_pcb;
+    }
+    pcb_to_fluid
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          2644;
+        startFace       70503;
+        sampleMode      nearestPatchFace;
+        sampleRegion    fluid;
+        samplePatch     fluid_to_pcb;
+    }
+    pcb_to_heatsink
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1580;
+        startFace       73147;
+        sampleMode      nearestPatchFace;
+        sampleRegion    heatsink;
+        samplePatch     heatsink_to_pcb;
+    }
+    pcb_to_battery
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1080;
+        startFace       74727;
+        sampleMode      nearestPatchFace;
+        sampleRegion    battery;
+        samplePatch     battery_to_pcb;
+    }
+    pcb_to_metal
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          2760;
+        startFace       75807;
+        sampleMode      nearestPatchFace;
+        sampleRegion    metal;
+        samplePatch     metal_to_pcb;
+    }
+)
+
+// ************************************************************************* //

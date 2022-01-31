@@ -1,0 +1,87 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/fluid/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+8
+(
+    inlet
+    {
+        type            patch;
+        nFaces          24000;
+        startFace       15493315;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          24000;
+        startFace       15517315;
+    }
+    fixedWallsBottom
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          42708;
+        startFace       15541315;
+    }
+    emptyWalls
+    {
+        type            empty;
+        inGroups        List<word> 1(empty);
+        nFaces          105600;
+        startFace       15584023;
+    }
+    fluid_to_pcb
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          2644;
+        startFace       15689623;
+        sampleMode      nearestPatchFace;
+        sampleRegion    pcb;
+        samplePatch     pcb_to_fluid;
+    }
+    fluid_to_battery
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          5892;
+        startFace       15692267;
+        sampleMode      nearestPatchFace;
+        sampleRegion    battery;
+        samplePatch     battery_to_fluid;
+    }
+    fluid_to_heatsink
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          1392;
+        startFace       15698159;
+        sampleMode      nearestPatchFace;
+        sampleRegion    heatsink;
+        samplePatch     heatsink_to_fluid;
+    }
+    fluid_to_metal
+    {
+        type            mappedWall;
+        inGroups        List<word> 1(wall);
+        nFaces          52578;
+        startFace       15699551;
+        sampleMode      nearestPatchFace;
+        sampleRegion    metal;
+        samplePatch     metal_to_fluid;
+    }
+)
+
+// ************************************************************************* //
